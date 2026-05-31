@@ -68,7 +68,7 @@ button:active {
     height: 100%;
     min-width: 0;
     box-sizing: border-box;
-    border: none;;
+    border: none;
 }
 
 .palette-output {
