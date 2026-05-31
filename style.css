@@ -68,8 +68,7 @@ button:active {
     height: 100%;
     min-width: 0;
     box-sizing: border-box;
-    border: 2px solid rgba(0,0,0,0.15);
-    background: linear-gradient(23deg,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    border: none;;
 }
 
 .palette-output {

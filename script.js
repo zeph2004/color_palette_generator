@@ -13,7 +13,7 @@ function generateBaseColor() {
     const hue = Math.floor(Math.random() * 360);
 
     // Saturation: 45 - 90
-    const saturation = Math.floor(Math.random() * 56) + 45;
+    const saturation = Math.floor(Math.random() * 66) + 35;
 
     // Lightness: 50 - 80
     const lightness = Math.floor(Math.random() * 31) + 50;
