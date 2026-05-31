@@ -78,7 +78,7 @@ function generateComplementaryPalette(baseColor) {
     const interval =
         availableRange / 2;
 
-    const complementaryHue = (baseColor.hue + 180) % 360
+    const complementaryHue = (baseColor.hue + 180) % 360;
 
         for (let i = 0; i < 3; i++) {
         palette.push({
@@ -158,34 +158,100 @@ function generateTetradicPalette(baseColor) {
 }
 
 // ====================
-// TESTING
+// CSS COLOR CONVERSION
 // ====================
 
-const baseColor = generateBaseColor();
+function colorToCss(color) {
+    return `hsl(${color.hue}, ${color.saturation}%, ${color.lightness}%)`;
+}
 
-palettes.monochromatic =
-    generateMonochromaticPalette(baseColor);
 
-palettes.complementary =
-    generateComplementaryPalette(baseColor);
+// ====================
+// RANDOM STARTING COLORS
+// ====================
 
-palettes.triadic =
-    generateTriadicPalette(baseColor);
+function renderRandomColorStrip() {
+    const colorBoxes = document.querySelectorAll(".color");
 
-palettes.tetradic = 
-    generateTetradicPalette(baseColor);
+    colorBoxes.forEach((box) => {
+        box.style.background = colorToCss(generateBaseColor());
+    });
+}
 
-console.log("Base Color:");
-console.log(baseColor);
 
-console.log("Monochromatic Palette:");
-console.log(palettes.monochromatic);
+// ==========================
+// PALETTE GENERATOR FUNCTION
+// ==========================
 
-console.log("Complementary Palette:");
-console.log(palettes.complementary);
+function generatePalettes() {
+    const baseColor = generateBaseColor();
 
-console.log("Triadic Palette:");
-console.log(palettes.triadic);
+    palettes.monochromatic =
+        generateMonochromaticPalette(baseColor);
 
-console.log("Tetradic Palette:");
-console.log(palettes.tetradic);
+    palettes.complementary =
+        generateComplementaryPalette(baseColor);
+
+    palettes.triadic =
+        generateTriadicPalette(baseColor);
+
+    palettes.tetradic =
+        generateTetradicPalette(baseColor);
+
+    renderPalettes();
+}
+
+
+// ====================
+// PALETTE RENDERING
+// ====================
+
+function renderPalettes() {
+    const paletteOutput =
+        document.querySelector("#palette-output");
+
+    paletteOutput.innerHTML = "";
+
+    Object.keys(palettes).forEach((paletteName) => {
+        const paletteSection =
+            document.createElement("div");
+
+        paletteSection.classList.add("palette");
+
+        const paletteTitle =
+            document.createElement("h2");
+
+        paletteTitle.textContent = paletteName;
+
+        const paletteColors =
+            document.createElement("div");
+
+        paletteColors.classList.add("palette-colors");
+
+        palettes[paletteName].forEach((color) => {
+            const paletteBox =
+                document.createElement("div");
+
+            paletteBox.classList.add("palette-box");
+            paletteBox.style.backgroundColor =
+                colorToCss(color);
+
+            paletteColors.appendChild(paletteBox);
+        });
+
+        paletteSection.appendChild(paletteTitle);
+        paletteSection.appendChild(paletteColors);
+        paletteOutput.appendChild(paletteSection);
+    });
+}
+
+
+// ====================
+// PAGE SETUP
+// ====================
+
+renderRandomColorStrip();
+
+document
+    .querySelector("#generate-palettes")
+    .addEventListener("click", generatePalettes);
