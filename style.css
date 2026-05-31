@@ -87,7 +87,7 @@ button:active {
 .palette-colors {
     display: flex;
     height: 76px;
-    border: 2px solid rgba(0,0,0,0.15);
+    border: none;
 }
 
 .palette-box {
